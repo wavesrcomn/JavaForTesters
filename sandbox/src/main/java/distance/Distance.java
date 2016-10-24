@@ -25,14 +25,9 @@ public class Distance {
         System.out.println("Введите координату y точки B:");
         yb = in.nextDouble();
 
-        PointA a = new PointA(xa, ya);
-        PointB b = new PointB(xb, yb);
-        System.out.println("Расстояние между точками составляет: " + calcDistance(a, b));
+        Point p = new Point(xa, ya, xb, yb);
+        System.out.println("Расстояние между точками составляет: " + p.calcDistance());
 
     }
 
-    public static double calcDistance (PointA a, PointB b){
-        return Math.sqrt(Math.pow((a.xa - b.xb), 2) * Math.pow((a.ya - b.yb), 2));
-
-    }
 }
