@@ -6,27 +6,19 @@ public class Distance {
 
     public static void main(String[] args){
 
-        double xa;
-        double ya;
-        double xb;
-        double yb;
+        double x;
+        double y;
 
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Введите координату x точки A:");
-        xa = in.nextDouble();
+        System.out.println("Введите координату x:");
+        x = in.nextDouble();
 
-        System.out.println("Введите координату y точки A:");
-        ya = in.nextDouble();
+        System.out.println("Введите координату y:");
+        y = in.nextDouble();
 
-        System.out.println("Введите координату x точки B:");
-        xb = in.nextDouble();
-
-        System.out.println("Введите координату y точки B:");
-        yb = in.nextDouble();
-
-        Point p = new Point(xa, ya, xb, yb);
-        System.out.println("Расстояние между точками составляет: " + p.calcDistance());
+        Point p = new Point(x, y);
+        System.out.println("Расстояние до точки составляет: " + p.calcDistance());
 
     }
 

@@ -2,21 +2,18 @@ package distance;
 
 public class Point {
 
-    public double xa;
-    public double ya;
-    public double xb;
-    public double yb;
+    public double x;
+    public double y;
 
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
 
-    public Point(double xa, double ya, double xb, double yb) {
-        this.xa = xa;
-        this.ya = ya;
-        this.xb = xb;
-        this.yb = yb;
     }
 
     public double calcDistance (){
-        return Math.sqrt(Math.pow((this.xa - this.xb), 2) * Math.pow((this.ya - this.yb), 2));
+        System.out.println(this.x + " " + x + " " + this.y + " " + y);
+        return Math.sqrt(Math.pow((this.x - x), 2) * Math.pow((this.y - y), 2));
 
     }
 
