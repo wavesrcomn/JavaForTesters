@@ -12,8 +12,9 @@ public class Point {
     }
 
     public double calcDistance (){
-        System.out.println(this.x + " " + x + " " + this.y + " " + y);
-        return Math.sqrt(Math.pow((this.x - x), 2) * Math.pow((this.y - y), 2));
+
+        Point p = new Point(3, 5);
+        return Math.sqrt(Math.pow((p.x - x), 2) * Math.pow((p.y - y), 2));
 
     }
 
