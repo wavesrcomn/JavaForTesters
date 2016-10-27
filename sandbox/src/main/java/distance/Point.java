@@ -13,8 +13,8 @@ public class Point {
 
     public double calcDistance (){
 
-        Point p = new Point(3, 5);
-        return Math.sqrt(Math.pow((p.x - x), 2) * Math.pow((p.y - y), 2));
+        Point p = new Point(0, 0);
+        return Math.sqrt(Math.pow((p.x - x), 2) + Math.pow((p.y - y), 2));
 
     }
 
