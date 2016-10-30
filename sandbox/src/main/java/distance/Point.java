@@ -11,10 +11,9 @@ public class Point {
 
     }
 
-    public double calcDistance (){
+    public double calcDistance(Point b){
 
-        Point p = new Point(0, 0);
-        return Math.sqrt(Math.pow((p.x - x), 2) + Math.pow((p.y - y), 2));
+        return Math.sqrt(Math.pow((b.x - x), 2) + Math.pow((b.y - y), 2));
 
     }
 
