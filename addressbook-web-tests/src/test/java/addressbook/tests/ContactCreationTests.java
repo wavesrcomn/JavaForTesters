@@ -1,6 +1,6 @@
-package addressbook;
+package addressbook.tests;
 
-import addressbook.ContactData;
+import addressbook.model.ContactData;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -11,9 +11,9 @@ import java.io.File;
 
 import org.openqa.selenium.*;
 
-public class ContactCreationTests {
+public class ContactCreationTests extends TestBase{
     ChromeDriver wd;
-    
+
     @BeforeMethod
     public void setUp() throws Exception {
         File file = new File("C:/Develop/JavaForTesters/addressbook-web-tests/iexploredriver.exe");
@@ -81,7 +81,7 @@ public class ContactCreationTests {
     public void tearDown() {
         wd.quit();
     }
-    
+
     public static boolean isAlertPresent(ChromeDriver wd) {
         try {
             wd.switchTo().alert();
