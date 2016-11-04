@@ -2,23 +2,29 @@ package addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HelperBase {
-    protected ChromeDriver wd;
+    private WebDriver wd;
 
-    public HelperBase(ChromeDriver wd) {
+    public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
 
     protected void click(By locator) {
-        wd.findElement(locator).click();
+        find(locator).click();
+    }
+
+    private WebElement find(By locator) {
+        return wd.findElement(locator);
     }
 
     protected void type(By locator, String text) {
-        click(locator);
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
+        WebElement element = find(locator);
+        element.clear();
+        element.sendKeys(text);
     }
 
     public boolean isAlertPresent() {
