@@ -13,18 +13,22 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    protected void click(By locator) {
-        find(locator).click();
-    }
-
     private WebElement find(By locator) {
         return wd.findElement(locator);
+    }
+
+    protected void click(By locator) {
+        find(locator).click();
     }
 
     protected void type(By locator, String text) {
         WebElement element = find(locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    protected void submitAlert() {
+        wd.switchTo().alert().accept();
     }
 
     public boolean isAlertPresent() {

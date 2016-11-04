@@ -1,6 +1,7 @@
-package addressbook.tests;
+package addressbook.tests.Contact;
 
 import addressbook.model.ContactData;
+import addressbook.tests.TestBase;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -11,7 +12,7 @@ import java.io.File;
 
 import org.openqa.selenium.*;
 
-public class ContactCreationTests extends TestBase{
+public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() {
