@@ -23,7 +23,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void sendContactForm() {
-        click(By.xpath("//div[@id='content']/form/input[21]"));
+        click(By.xpath("//*[@id='content']//input[@value='Enter']"));
     }
 
     public void selectContact() {
@@ -36,7 +36,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void initContactModification() {
-        click(By.xpath("//*[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        click(By.xpath("//*[@id='maintable']//tr[2]/td[8]/a"));
     }
 
     public void submitContactModification() {
