@@ -16,10 +16,8 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() {
-
-        app.getNavigationHelper().gotoAddContactPage();
-        app.getContactHelper().fillContactForm(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", "Тест 1"), true);
-        app.getContactHelper().sendContactForm();
+        app.getContactHelper().gotoAddContactPage();
+        app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null), true);
     }
 
 }
