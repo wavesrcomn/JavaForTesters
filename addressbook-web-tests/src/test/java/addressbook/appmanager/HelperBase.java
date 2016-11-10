@@ -1,19 +1,16 @@
 package addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HelperBase {
-    private WebDriver wd;
+    protected WebDriver wd;
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
 
-    private WebElement find(By locator) {
+    protected WebElement find(By locator) {
         return wd.findElement(locator);
     }
 
@@ -23,8 +20,13 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         WebElement element = find(locator);
-        element.clear();
-        element.sendKeys(text);
+        if (text != null) {
+            String existingText = wd.findElement(locator).getAttribute("value");
+            if (!text.equals(existingText)) {
+                element.clear();
+                element.sendKeys(text);
+            }
+        }
     }
 
     protected void submitAlert() {
@@ -38,5 +40,15 @@ public class HelperBase {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+    protected boolean isElementPresent(By locator) {
+        try{
+            find(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+
     }
 }
