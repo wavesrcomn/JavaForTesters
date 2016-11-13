@@ -60,9 +60,9 @@ public class ContactHelper extends HelperBase{
         click(By.linkText("add new"));
     }
 
-    public void createContact(ContactData contact, Boolean creation) {
+    public void createContact(ContactData contact) {
         gotoAddContactPage();
-        fillContactForm(contact, creation);
+        fillContactForm(contact, true);
         sendContactForm();
     }
 
