@@ -3,6 +3,7 @@ package addressbook.tests.Contact;
 import addressbook.model.ContactData;
 import addressbook.tests.TestBase;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -16,8 +17,13 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() {
+        app.getNavigationHelper().gotoHomePage();
+        int before = app.getContactHelper().countContactCount();
         app.getContactHelper().gotoAddContactPage();
         app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null));
+        app.getNavigationHelper().gotoHomePage();
+        int after = app.getContactHelper().countContactCount();
+        Assert.assertEquals(after, before + 1);
     }
 
 }
