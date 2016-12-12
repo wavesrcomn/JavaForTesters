@@ -42,8 +42,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void sendContactForm() {
-        click(By.xpath("//*[@id='content']//input[@value='Enter']"));
-        //*[@id="content"]/form/input[21]
+        click(By.name("submit"));
     }
 
     public void selectContact(int index) {
@@ -87,7 +86,8 @@ public class ContactHelper extends HelperBase{
         for (WebElement element: elements){
             String lastname = element.findElement(By.xpath("td[2]")).getText();
             String firstname = element.findElement(By.xpath("td[3]")).getText();
-            ContactData contact = new ContactData(firstname, "Вадимович", lastname, "wavesrcomn", "Рабочий", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null);
+            String address = element.findElement(By.xpath("td[4]")).getText();
+            ContactData contact = new ContactData(firstname, "Вадимович", lastname, "wavesrcomn", "Рабочий", address, "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null);
             contacts.add(contact);
         }
         return contacts;
