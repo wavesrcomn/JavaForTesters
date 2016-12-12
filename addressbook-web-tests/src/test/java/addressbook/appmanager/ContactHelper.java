@@ -6,9 +6,13 @@ import com.gargoylesoftware.htmlunit.javascript.host.dom.Selection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -21,10 +25,12 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
-        type(By.name("title"), contactData.getAddress());
+        type(By.name("title"), contactData.getTitle());
+        type(By.name("address"), contactData.getAddress());
         type(By.name("company"), contactData.getCompany());
         type(By.name("mobile"), contactData.getMobile());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("byear"), contactData.getByear());
 
         if (creation) {
             if (isElementPresent(By.name("selected[]"))) {
@@ -37,6 +43,7 @@ public class ContactHelper extends HelperBase{
 
     public void sendContactForm() {
         click(By.xpath("//*[@id='content']//input[@value='Enter']"));
+        //*[@id="content"]/form/input[21]
     }
 
     public void selectContact(int index) {
@@ -72,5 +79,17 @@ public class ContactHelper extends HelperBase{
 
     public int countContactCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element: elements){
+            String lastname = element.findElement(By.xpath("td[2]")).getText();
+            String firstname = element.findElement(By.xpath("td[3]")).getText();
+            ContactData contact = new ContactData(firstname, "Вадимович", lastname, "wavesrcomn", "Рабочий", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }

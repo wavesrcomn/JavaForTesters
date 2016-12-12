@@ -20,11 +20,11 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() {
         app.getNavigationHelper().gotoHomePage();
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().gotoAddContactPage();
-        app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null));
+        app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Рабочий", "Пенза, Гагарина 11а", "ООО 'КБ Ренессанс Кредит'", "+79093170708", "wavesrcomn@gmail.com", "1991", null));
         app.getNavigationHelper().gotoHomePage();
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
     }
 
