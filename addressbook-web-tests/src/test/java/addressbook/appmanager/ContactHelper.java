@@ -89,19 +89,7 @@ public class ContactHelper extends HelperBase{
             String lastname = element.findElement(By.xpath("td[2]")).getText();
             String firstname = element.findElement(By.xpath("td[3]")).getText();
             String address = element.findElement(By.xpath("td[4]")).getText();
-            String email = "";
-            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[1]"))) {
-                email = element.findElement(By.xpath("td[5]/a[1]")).getText();
-            }
-            String email2 = "";
-            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[2]"))) {
-                email2 = element.findElement(By.xpath("td[5]/a[2]")).getText();
-            }
-            String email3 = "";
-            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[3]"))) {
-                email3 = element.findElement(By.xpath("td[5]/a[3]")).getText();
-            }
-            ContactData contact = new ContactData(firstname, null, lastname, null, null, address, null, "+79093170708", email, email2, email3, null, null);
+            ContactData contact = new ContactData(firstname, null, lastname, null, null, address, null, "+79093170708", null, null, null, null, null);
             contacts.add(contact);
         }
         return contacts;
