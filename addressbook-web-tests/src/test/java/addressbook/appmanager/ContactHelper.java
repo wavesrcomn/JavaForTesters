@@ -30,6 +30,8 @@ public class ContactHelper extends HelperBase{
         type(By.name("company"), contactData.getCompany());
         type(By.name("mobile"), contactData.getMobile());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
         type(By.name("byear"), contactData.getByear());
 
         if (creation) {
@@ -87,7 +89,19 @@ public class ContactHelper extends HelperBase{
             String lastname = element.findElement(By.xpath("td[2]")).getText();
             String firstname = element.findElement(By.xpath("td[3]")).getText();
             String address = element.findElement(By.xpath("td[4]")).getText();
-            ContactData contact = new ContactData(firstname, "Вадимович", lastname, "wavesrcomn", "Рабочий", address, "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null);
+            String email = "";
+            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[1]"))) {
+                email = element.findElement(By.xpath("td[5]/a[1]")).getText();
+            }
+            String email2 = "";
+            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[2]"))) {
+                email2 = element.findElement(By.xpath("td[5]/a[2]")).getText();
+            }
+            String email3 = "";
+            if (isElementPresent(By.xpath("//*[@name=\"entry\"]/td[5]/a[3]"))) {
+                email3 = element.findElement(By.xpath("td[5]/a[3]")).getText();
+            }
+            ContactData contact = new ContactData(firstname, null, lastname, null, null, address, null, "+79093170708", email, email2, email3, null, null);
             contacts.add(contact);
         }
         return contacts;

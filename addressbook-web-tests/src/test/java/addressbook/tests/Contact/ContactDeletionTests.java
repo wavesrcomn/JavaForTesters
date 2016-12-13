@@ -12,7 +12,7 @@ public class ContactDeletionTests extends TestBase {
         app.getNavigationHelper().gotoHomePage();
         int before = app.getContactHelper().countContactCount();
         if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Рабочий", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "1991", null));
+            app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Рабочий", "Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", null, null,"1991", null));
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().selectContact(before - 1);
