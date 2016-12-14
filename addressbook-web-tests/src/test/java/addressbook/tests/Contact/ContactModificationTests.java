@@ -1,38 +1,63 @@
 package addressbook.tests.Contact;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import addressbook.tests.TestBase;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ContactModificationTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePrecondition() {
+        app.goTo().homePage();
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new ContactData()
+                    .withFirstname("Дмитрий")
+                    .withMiddlename("Вадимович")
+                    .withLastname("Ковалев")
+                    .withNickname("wavesrcomn")
+                    .withTitle("Рабочий")
+                    .withAddress("Пенза, Гагарина 11а")
+                    .withCompany("ООО \"КБ Ренессанс Кредит\"")
+                    .withMobile("+79093170708")
+                    .withEmail("wavesrcomn@gmail.com")
+                    .withEmail2("twisterbox@mail.ru")
+                    .withByear("1991")
+                    .withGroup("Тест 1"));
+        }
+    }
+
     @Test
     public void testContactModification() {
-        app.getNavigationHelper().gotoHomePage();
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("Дмитрий", "Вадимович", "Ковалев", "wavesrcomn", "Рабочий","Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", null, null,"1991", null));
-            app.getNavigationHelper().gotoHomePage();
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(0);
-        app.getContactHelper().initContactModification();
-        ContactData contact = new ContactData("Дмитр", "Вадимович", "Ковалев", "wavesrcomn", "Рабочий","Пенза, Гагарина 11а", "ООО \"КБ Ренессанс Кредит\"", "+79093170708", "wavesrcomn@gmail.com", "", "","1991", null);
-        app.getContactHelper().fillContactForm(contact, false);
-        app.getContactHelper().submitContactModification();
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(before.size() - 1);
-        before.add(contact);
-        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData()
+                .withId(modifiedContact.getId())
+                .withFirstname("Дмитр")
+                .withMiddlename("Вадимович")
+                .withLastname("Ковалев")
+                .withNickname("wavesrcomn")
+                .withTitle("Рабочий")
+                .withAddress("Пенза, Гагарина 11а")
+                .withCompany("ООО \"КБ Ренессанс Кредит\"")
+                .withMobile("+79093170708")
+                .withEmail("wavesrcomn@gmail.com")
+                .withEmail2("twister@mail.ru")
+                .withByear("1991")
+                .withGroup("Тест 1");
+        app.contact().modify(contact);
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size()));
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
+
+
 
 }
