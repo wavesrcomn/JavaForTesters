@@ -3,11 +3,8 @@ package addressbook.tests.Contact;
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,7 +23,7 @@ public class ContactDeletionTests extends TestBase {
                     .withTitle("Рабочий")
                     .withAddress("Пенза, Гагарина 11а")
                     .withCompany("ООО \"КБ Ренессанс Кредит\"")
-                    .withMobile("+79093170708")
+                    .withMobilePhone("+79093170708")
                     .withEmail("wavesrcomn@gmail.com")
                     .withEmail2("twisterbox@mail.ru")
                     .withByear("1991")
@@ -39,8 +36,8 @@ public class ContactDeletionTests extends TestBase {
         Contacts before = app.contact().all();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
+        assertThat(app.contact().count(), equalTo(before.size() - 1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() - 1));
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 

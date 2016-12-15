@@ -3,11 +3,8 @@ package addressbook.tests.Contact;
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,7 +23,7 @@ public class ContactModificationTests extends TestBase {
                     .withTitle("Рабочий")
                     .withAddress("Пенза, Гагарина 11а")
                     .withCompany("ООО \"КБ Ренессанс Кредит\"")
-                    .withMobile("+79093170708")
+                    .withMobilePhone("+79093170708")
                     .withEmail("wavesrcomn@gmail.com")
                     .withEmail2("twisterbox@mail.ru")
                     .withByear("1991")
@@ -47,14 +44,14 @@ public class ContactModificationTests extends TestBase {
                 .withTitle("Рабочий")
                 .withAddress("Пенза, Гагарина 11а")
                 .withCompany("ООО \"КБ Ренессанс Кредит\"")
-                .withMobile("+79093170708")
+                .withMobilePhone("+79093170708")
                 .withEmail("wavesrcomn@gmail.com")
                 .withEmail2("twister@mail.ru")
                 .withByear("1991")
                 .withGroup("Тест 1");
         app.contact().modify(contact);
+        assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size()));
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 
