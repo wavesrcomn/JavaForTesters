@@ -21,16 +21,23 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
+        type(By.name("company"), contactData.getCompany());
         type(By.name("title"), contactData.getTitle());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("company"), contactData.getCompany());
         type(By.name("home"), contactData.getHomePhone());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("work"), contactData.getWorkPhone());
+        type(By.name("fax"), contactData.getFax());
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
-        type(By.name("byear"), contactData.getByear());
+        type(By.name("homapage"), contactData.getHomepage());
+        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBDay());
+        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBMonth());
+        new Select(wd.findElement(By.name("byear"))).selectByVisibleText(contactData.getBYear());
+        new Select(wd.findElement(By.name("aday"))).selectByVisibleText(contactData.getADay());
+        new Select(wd.findElement(By.name("amonth"))).selectByVisibleText(contactData.getAMonth());
+        new Select(wd.findElement(By.name("ayear"))).selectByVisibleText(contactData.getAYear());
 
         if (creation) {
             if (isElementPresent(By.name("selected[]"))) {
@@ -39,6 +46,10 @@ public class ContactHelper extends HelperBase{
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
+
+        type(By.name("secondAddress"), contactData.getSecondAddress());
+        type(By.name("secondHome"), contactData.getSecondHome());
+        type(By.name("notes"), contactData.getNotes());
     }
 
     public void sendContactForm() {
@@ -148,6 +159,18 @@ public class ContactHelper extends HelperBase{
     }
 
     private void initContactModificationById(int id) {
-        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", id)));
+    }
+
+    public ContactData infoFromView(ContactData contact) {
+        gotoContactViewById(contact.getId());
+        String allInfo = wd.findElement(By.id("content")).getText();
+        wd.navigate().back();
+        return new ContactData()
+                .withAllInfo(allInfo);
+    }
+
+    public void gotoContactViewById(int id) {
+        click(By.cssSelector(String.format("a[href='view.php?id=%s']", id)));
     }
 }
