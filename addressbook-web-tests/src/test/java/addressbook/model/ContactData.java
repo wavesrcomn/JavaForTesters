@@ -46,7 +46,8 @@ public class ContactData {
     private String allPhones;
     private String allEmails;
     private String allInfo;
-    private File photo;
+    @Expose
+    private String photo;
 
     //Getters
 
@@ -166,7 +167,7 @@ public class ContactData {
         return allInfo;
     }
 
-    public File getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
@@ -322,7 +323,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withPhoto(File photo) {
+    public ContactData withPhoto(String photo) {
         this.photo = photo;
         return this;
     }

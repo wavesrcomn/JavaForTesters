@@ -7,7 +7,8 @@
     "mobile": "9093170708",
     "work": "8495346236",
     "email": "w323@mail.ru",
-    "email2": "w3rurktyu@mail.ru"
+    "email2": "w3rurktyu@mail.ru",
+    "photo": "src/test/resources/XNBCvZKXHTg.jpg"
   },
   {
     "firstname": "Дмитрий",
@@ -17,7 +18,8 @@
     "mobile": "9093170708",
     "work": "8495346236",
     "email": "w323@mail.ru",
-    "email2": "w3rurktyu@mail.ru"
+    "email2": "w3rurktyu@mail.ru",
+    "photo": "src/test/resources/XNBCvZKXHTg.jpg"
   },
   {
     "firstname": "Дмитрий",
@@ -27,6 +29,7 @@
     "mobile": "9093170708",
     "work": "8495346236",
     "email": "w323@mail.ru",
-    "email2": "w3rurktyu@mail.ru"
+    "email2": "w3rurktyu@mail.ru",
+    "photo": "src/test/resources/XNBCvZKXHTg.jpg"
   }
 ]
