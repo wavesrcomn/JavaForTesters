@@ -1,6 +1,5 @@
 package addressbook.model;
 
-import addressbook.model.ContactData;
 import com.google.common.collect.ForwardingSet;
 
 import java.util.HashSet;

@@ -21,6 +21,7 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
+        attach(By.name("photo"), contactData.getPhoto());
         type(By.name("company"), contactData.getCompany());
         type(By.name("title"), contactData.getTitle());
         type(By.name("address"), contactData.getAddress());
@@ -31,13 +32,13 @@ public class ContactHelper extends HelperBase{
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
-        type(By.name("homapage"), contactData.getHomepage());
-        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBDay());
-        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBMonth());
-        new Select(wd.findElement(By.name("byear"))).selectByVisibleText(contactData.getBYear());
-        new Select(wd.findElement(By.name("aday"))).selectByVisibleText(contactData.getADay());
-        new Select(wd.findElement(By.name("amonth"))).selectByVisibleText(contactData.getAMonth());
-        new Select(wd.findElement(By.name("ayear"))).selectByVisibleText(contactData.getAYear());
+        type(By.name("homepage"), contactData.getHomepage());
+        if (contactData.getBDay() != null) {new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBDay());}
+        if (contactData.getBMonth() != null) {new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBMonth());}
+        type(By.name("byear"), contactData.getBYear());
+        if (contactData.getADay() != null) {new Select(wd.findElement(By.name("aday"))).selectByVisibleText(contactData.getADay());}
+        if (contactData.getAMonth() != null) {new Select(wd.findElement(By.name("amonth"))).selectByVisibleText(contactData.getAMonth());}
+        type(By.name("ayear"), contactData.getAYear());
 
         if (creation) {
             if (isElementPresent(By.name("selected[]"))) {
@@ -47,8 +48,8 @@ public class ContactHelper extends HelperBase{
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
 
-        type(By.name("secondAddress"), contactData.getSecondAddress());
-        type(By.name("secondHome"), contactData.getSecondHome());
+        type(By.name("address2"), contactData.getSecondAddress());
+        type(By.name("phone2"), contactData.getSecondHome());
         type(By.name("notes"), contactData.getNotes());
     }
 

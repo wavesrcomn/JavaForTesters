@@ -1,10 +1,8 @@
 package addressbook.appmanager;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
+import java.io.File;
 
 public class HelperBase {
     protected WebDriver wd;
@@ -23,12 +21,19 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         WebElement element = find(locator);
+        click(locator);
         if (text != null) {
             String existingText = wd.findElement(locator).getAttribute("value");
             if (!text.equals(existingText)) {
                 element.clear();
                 element.sendKeys(text);
             }
+        }
+    }
+
+    protected void attach(By locator, File file) {
+        if (file != null) {
+            wd.findElement(locator).sendKeys(file.getAbsolutePath());
         }
     }
 
