@@ -21,7 +21,7 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
-        attach(By.name("photo"), contactData.getPhoto());
+        if (contactData.getBDay() != null) {attach(By.name("photo"), contactData.getPhoto());}
         type(By.name("company"), contactData.getCompany());
         type(By.name("title"), contactData.getTitle());
         type(By.name("address"), contactData.getAddress());
@@ -66,10 +66,6 @@ public class ContactHelper extends HelperBase{
         submitAlert();
     }
 
-    public void initContactModification() {
-        click(By.xpath("//*[@id='maintable']//tr[2]/td[8]/a"));
-    }
-
     public void submitContactModification() {
         click(By.xpath("//*[@value='Update']"));
     }
@@ -90,8 +86,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void modify(ContactData contact) {
-        selectContactById(contact.getId());
-        initContactModification();
+        initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
         contactCache = null;
