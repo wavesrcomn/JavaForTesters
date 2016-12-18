@@ -37,7 +37,7 @@ public class GroupHelper extends HelperBase{
     }
 
     public void selectGroupById(int id) {
-        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+        click(By.cssSelector("input[value='" + id + "']"));
     }
 
     public void initGroupModification() {
@@ -86,8 +86,10 @@ public class GroupHelper extends HelperBase{
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
+            String header = element.getText();
+            String footer = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groupCache.add(new GroupData().withId(id).withName(name));
+            groupCache.add(new GroupData().withId(id).withName(name).withHeader(header).withFooter(footer));
         }
         return new Groups(groupCache);
     }

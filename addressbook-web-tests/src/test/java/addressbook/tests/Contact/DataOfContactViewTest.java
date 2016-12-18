@@ -15,8 +15,8 @@ public class DataOfContactViewTest extends TestBase {
 
     @BeforeMethod
     public void ensurePrecondition() {
-        app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0){
+            app.goTo().homePage();
             app.contact().create(new ContactData()
                     .withFirstname("Дмитрий")
                     .withMiddlename("Вадимович")
@@ -28,12 +28,11 @@ public class DataOfContactViewTest extends TestBase {
                     .withMobilePhone("+79093170708")
                     .withEmail("wavesrcomn@gmail.com")
                     .withEmail2("twisterbox@mail.ru")
-                    .withByear("1991")
                     .withGroup("Тест 1"));
         }
     }
 
-    @Test
+    @Test (enabled = false)
     public void testContactPhone() {
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();

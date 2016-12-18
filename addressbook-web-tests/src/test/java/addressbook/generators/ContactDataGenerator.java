@@ -97,7 +97,7 @@ public class ContactDataGenerator {
                     .withWorkPhone("8495346236")
                     .withEmail("w323@mail.ru")
                     .withEmail2("w3rurktyu@mail.ru")
-                    .withPhoto("src/test/resources/XNBCvZKXHTg.jpg"));
+                    .withPhotoUrl("src/test/resources/XNBCvZKXHTg.jpg"));
         }
         return contacts;
     }
