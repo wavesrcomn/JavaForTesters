@@ -2,6 +2,7 @@ package addressbook.tests.Contact;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import addressbook.tests.TestBase;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +56,27 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
-    @Test (dataProvider = "validContactsFromJson")
+    @DataProvider
+    public Iterator<Object[]> validCreatedContact() {
+        Groups groups = app.db().groups();
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        for (int i = 0; i < 1; i++){
+            contacts.add(new ContactData()
+                    .withFirstname("Дмитрий")
+                    .withLastname("Ковалёв")
+                    .withAddress("Пенза")
+                    .withHomePhone("23252436")
+                    .withMobilePhone("9093170708")
+                    .withWorkPhone("8495346236")
+                    .withEmail("w323@mail.ru")
+                    .withEmail2("w3rurktyu@mail.ru")
+                    .withPhotoUrl("src/test/resources/XNBCvZKXHTg.jpg")
+                    .inGroup(groups.iterator().next()));
+        }
+        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+
+    @Test (dataProvider = "validCreatedContact")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
         Contacts before = app.db().contacts();

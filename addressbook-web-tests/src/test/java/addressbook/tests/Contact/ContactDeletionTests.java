@@ -2,6 +2,7 @@ package addressbook.tests.Contact;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import addressbook.tests.TestBase;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,6 +14,7 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePrecondition() {
+        Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0){
             app.goTo().homePage();
             app.contact().create(new ContactData()
@@ -26,7 +28,7 @@ public class ContactDeletionTests extends TestBase {
                     .withMobilePhone("+79093170708")
                     .withEmail("wavesrcomn@gmail.com")
                     .withEmail2("twisterbox@mail.ru")
-                    .withGroup("Тест 1"));
+                    .inGroup(groups.iterator().next()));
         }
     }
 

@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -97,8 +99,10 @@ public class ContactData {
     @Transient
     private String aYear;
 
-    @Transient
-    private String group;
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable (name = "address_in_groups",
+            joinColumns = @JoinColumn (name = "id"), inverseJoinColumns = @JoinColumn (name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Column(name = "address2")
     @Type(type = "text")
@@ -219,10 +223,6 @@ public class ContactData {
         return aYear;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
     public String getSecondAddress() {
         return secondAddress;
     }
@@ -253,6 +253,10 @@ public class ContactData {
 
     public File getPhoto() {
         return new File(photo);
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     //Setters
@@ -329,11 +333,6 @@ public class ContactData {
 
     public ContactData withByear(String byear) {
         this.bYear = byear;
-        return this;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
         return this;
     }
 
@@ -465,6 +464,7 @@ public class ContactData {
         if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
         if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
+        if (groups != null ? !groups.equals(that.groups) : that.groups != null) return false;
         if (secondAddress != null ? !secondAddress.equals(that.secondAddress) : that.secondAddress != null)
             return false;
         if (secondHome != null ? !secondHome.equals(that.secondHome) : that.secondHome != null) return false;
@@ -489,9 +489,20 @@ public class ContactData {
         result = 31 * result + (email2 != null ? email2.hashCode() : 0);
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
         result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
+        result = 31 * result + (groups != null ? groups.hashCode() : 0);
         result = 31 * result + (secondAddress != null ? secondAddress.hashCode() : 0);
         result = 31 * result + (secondHome != null ? secondHome.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
+    public ContactData inGroups(Groups groups) {
+        this.groups = groups;
+        return this;
     }
 }

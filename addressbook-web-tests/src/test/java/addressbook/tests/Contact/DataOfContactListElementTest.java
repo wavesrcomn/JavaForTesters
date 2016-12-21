@@ -1,6 +1,7 @@
 package addressbook.tests.Contact;
 
 import addressbook.model.ContactData;
+import addressbook.model.Groups;
 import addressbook.tests.TestBase;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,6 +17,7 @@ public class DataOfContactListElementTest extends TestBase {
     @BeforeMethod
     public void ensurePrecondition() {
         if (app.db().contacts().size() == 0){
+            Groups groups = app.db().groups();
             app.goTo().homePage();
             app.contact().create(new ContactData()
                     .withFirstname("Дмитрий")
@@ -28,7 +30,7 @@ public class DataOfContactListElementTest extends TestBase {
                     .withMobilePhone("+79093170708")
                     .withEmail("wavesrcomn@gmail.com")
                     .withEmail2("twisterbox@mail.ru")
-                    .withGroup("Тест 1"));
+                    .inGroup(groups.iterator().next()));
         }
     }
 

@@ -10,7 +10,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DbHelper {
 
@@ -46,5 +48,20 @@ public class DbHelper {
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
+    }
+
+    public ContactData contactById(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        ContactData contactById = new ContactData();
+        List<ContactData> result = session.createQuery("from ContactData where deprecated ='0000-00-00'").list();
+        for (ContactData contact : result) {
+            if (contact.getId() == id){
+                contactById = contact;
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+        return contactById;
     }
 }

@@ -41,8 +41,9 @@ public class ContactHelper extends HelperBase{
         type(By.name("ayear"), contactData.getAYear());
 
         if (creation) {
-            if (isElementPresent(By.name("selected[]"))) {
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -132,6 +133,7 @@ public class ContactHelper extends HelperBase{
 
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
+        int id = Integer.parseInt(wd.findElement(By.name("id")).getAttribute("value"));
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getAttribute("value");
@@ -143,6 +145,7 @@ public class ContactHelper extends HelperBase{
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new ContactData()
+                .withId(id)
                 .withFirstname(firstname)
                 .withLastname(lastname)
                 .withAddress(address)
@@ -168,5 +171,37 @@ public class ContactHelper extends HelperBase{
 
     public void gotoContactViewById(int id) {
         click(By.cssSelector(String.format("a[href='view.php?id=%s']", id)));
+    }
+
+    public void addContactToGroup(int contactId, int groupId) {
+        selectContact(contactId);
+        selectGroupToAdd(groupId);
+        submitAddition();
+    }
+
+    public void selectContact(int contactId) {
+        click(By.cssSelector("input[id='" + contactId + "']"));
+    }
+
+    public void selectGroupToAdd(int groupId) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(Integer.toString(groupId));
+    }
+
+    public void submitAddition() {
+        click(By.xpath("//*[@value='Add to']"));
+    }
+
+    public void removeContactFromGroup(int contactId, int groupId) {
+        selectGroupToRemoveFrom(groupId);
+        selectContact(contactId);
+        submitRemoval();
+    }
+
+    public void selectGroupToRemoveFrom(int groupId){
+        new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(groupId));
+    }
+
+    private void submitRemoval() {
+        click(By.name("remove"));
     }
 }
