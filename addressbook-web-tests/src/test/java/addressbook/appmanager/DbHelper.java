@@ -53,15 +53,9 @@ public class DbHelper {
     public ContactData contactById(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        ContactData contactById = new ContactData();
-        List<ContactData> result = session.createQuery("from ContactData where deprecated ='0000-00-00'").list();
-        for (ContactData contact : result) {
-            if (contact.getId() == id){
-                contactById = contact;
-            }
-        }
+        List<ContactData> result = session.createQuery("from ContactData where id = " + id + " and deprecated ='0000-00-00'").list();
         session.getTransaction().commit();
         session.close();
-        return contactById;
+        return result.iterator().next();
     }
 }

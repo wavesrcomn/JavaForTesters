@@ -5,7 +5,9 @@ import addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.List;
@@ -195,6 +197,7 @@ public class ContactHelper extends HelperBase{
         selectGroupToRemoveFrom(groupId);
         selectContact(contactId);
         submitRemoval();
+        isRemovalFinished();
     }
 
     public void selectGroupToRemoveFrom(int groupId){
@@ -203,5 +206,12 @@ public class ContactHelper extends HelperBase{
 
     private void submitRemoval() {
         click(By.name("remove"));
+    }
+
+    private void isRemovalFinished() {
+        if (!isElementPresent(By.className("msgbox"))) {
+            WebDriverWait wait = new WebDriverWait(wd, 5);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.className("msgbox")));
+        }
     }
 }
